@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% block title %}Sign in{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-offset-2 col-sm-10">
+      <h1>Sign in</h1>
+      <p>Not yet registered?  
+        <a href="{% url 'registration_register' %}">Register now for free!</a></p>
+      <p>Trouble signing in?  
+       <p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
+       </p>
+    </div>
+  </div>
+  {% if form.errors %}
+  <div class="row">
+    <div class="alert alert-danger col-sm-offset-2 col-sm-6">
+      <p><strong>Login failed. Try again...</strong></p>
+    </div>
+  </div>
+  {% endif %}
+
+  <form action="." 
+      method="post" 
+      role="form" 
+      class="form-horizontal">
+    {% csrf_token %}
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+    {% bootstrap_field form.username layout='horizontal' %}
+    {% bootstrap_field form.password layout='horizontal' %}
+    </div>
+    <div class="col-md-2"></div>
+    {% if next %}
+      <input type="hidden" name="next" value="{{ next }}" />
+    {% else %}
+      
+    {% endif %}
+    {% buttons %}
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">
+        {% bootstrap_icon "star" %} Login
+      </button>
+    </div>
+    {% endbuttons %}
+  </form>
+
+
+
+</div>
+{% endblock %}
+ 
